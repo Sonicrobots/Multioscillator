@@ -32,7 +32,7 @@ void MultiChannelOscillator::stop() {
 #ifndef TESTING
 	setLow(TIMSK1,OCIE1A);
 #else
-	printf("stopped\n");
+	//printf("stopped\n");
 #endif
 }
 
@@ -115,14 +115,14 @@ void MultiChannelOscillator::calcCompareValues() {
 		//currentCompareValues[index] = compareValues[index];
 
 		#ifdef TESTING
-		printf("Channel %u: %u\n",index,compareValues[index]);
+		//printf("Channel %u: %u\n",index,compareValues[index]);
 		#endif
 	}
 
 
 
 	#ifdef TESTING
-		printf("\n");
+		//printf("\n");
 	#endif
 }
 
@@ -197,7 +197,7 @@ void MultiChannelOscillator::printBuffer() {
 	#ifdef TESTING
 	volatile toggleEvent* eventPtr = buffer.getPointer();
 	for (uint8_t index=0; index<eventBufferSize; index++) {
-		printf("do %u then wait %u\n",eventPtr->bits,eventPtr->time);
+		//printf("do %u then wait %u\n",eventPtr->bits,eventPtr->time);
 		eventPtr++;
 	}
 	#endif
@@ -214,7 +214,7 @@ inline void MultiChannelOscillator::performToggle() {
 			OCR1A = event.time;
 			REG_PIN(OSCIL_PORT) = event.bits;
 			#else
-			printf("Flipping %u and setting timer to %u\n",event.bits,event.time);
+			//printf("Flipping %u and setting timer to %u\n",event.bits,event.time);
 
 	#endif
 

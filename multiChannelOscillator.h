@@ -20,8 +20,8 @@
 
 
 #include <inttypes.h>
-#include <portManipulations.h>
-#include <FiFoBuffer.h>
+#include "portManipulations.h"
+#include "FiFoBuffer.h"
 
 #ifndef TESTING
 #include <avr/io.h>
@@ -65,7 +65,7 @@ public:
 	void printBuffer();
 
 	static const uint8_t eventBufferSize = 100;
-	FiFoBuffer <eventBufferSize,toggleEvent> buffer;
+	FiFoBuffer<eventBufferSize,toggleEvent> buffer;
 
 	static const uint8_t numbChannels = 8;
 	uint8_t channelMappings[numbChannels];
