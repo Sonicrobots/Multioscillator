@@ -12,12 +12,12 @@ extern MultiChannelOscillator oscil;
 
 MIDI_CREATE_DEFAULT_INSTANCE()
 
-
+// Conversion  HERTZ --> Notes
 uint16_t frequency[128] PROGMEM = {8, 9, 9, 10, 10, 11, 12, 12, 13, 14, 15, 15, 16, 17, 18, 19, 21, 22, 23, 24, 26, 28, 29, 31, 33, 35, 37, 39, 41, 44, 46, 49, 52, 55, 58, 62, 65, 69, 73, 78, 82, 87, 92, 98, 104, 110, 117, 123, 131, 139, 147, 156, 165, 175, 185, 196, 208, 220, 233, 247, 262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988, 1047, 1109, 1175, 1245, 1319, 1397, 1480, 1568, 1661, 1760, 1865, 1976, 2093, 2217, 2349, 2489, 2637, 2794, 2960, 3136, 3322, 3520, 3729, 3951, 4186, 4435, 4699, 4978, 5274, 5588, 5920, 5920, 6645, 7040, 7459, 7902, 8372, 8870, 9397, 9956, 10548, 11175, 11840, 12544};
 
 uint8_t pinIndices[8]  = {2,  3,  4,  5,  6,  7,  0,  1};
     //                    D3, D4, D5, 
-uint16_t frequencies[8] = {0,0,0,0,0,0,0,0};
+uint16_t frequencies[8] = {0,0,1000,1000,1000,1000,0,0};
 
 void setup() {
 
@@ -53,13 +53,19 @@ void loop() {
 
 void HandleNoteOn(byte channel, byte note, byte velocity)
 {          
-	oscil.setFrequency(/*channel*/ 1, note*4); // Output D3
+
+      for (int i=0; frequencies[i] != 0; i++)
+      {
+          channel = i+1;
+          if (i > 8) channel = 1;
+      }        
+	oscil.setFrequency(/*channel*/ 3, (unsigned int)pgm_read_word(&frequency[note+20])); 
 	digitalWrite(led, HIGH);
 }
 
 void HandleNoteOff(byte channel, byte note, byte velocity)
 {       
-	oscil.setFrequency(/*channel*/1, /*off*/ 0); // Output D3
+	oscil.setFrequency(/*channel*/3, /*off*/ 0); // Output D3
 	digitalWrite(led, LOW);
 }
 
