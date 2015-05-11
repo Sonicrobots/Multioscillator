@@ -15,7 +15,7 @@ MIDI_CREATE_DEFAULT_INSTANCE()
 
 uint8_t pinIndices[8]  = {2,  3,  4,  5,  6,  7,  0,  1};
     //                    D3, D4, D5, 
-uint16_t frequencies[8] = {0,0,0,0,0,0,0,0};
+uint16_t frequencies[8] = {0,0,1000,1000,1000,1000,0,0};
 
 void setup() {
 
@@ -51,13 +51,40 @@ void loop() {
 
 void HandleNoteOn(byte channel, byte note, byte velocity)
 {          
-	oscil.setFrequency(/*channel*/ 1, note*4); // Output D3
-	digitalWrite(led, HIGH);
+
+  switch (note) {
+    case 48:
+  	oscil.setFrequency(/*channel*/ 2, velocity+10); 
+      break;
+    case 49:
+  	oscil.setFrequency(/*channel*/ 3, velocity+10); 
+      break;
+    case 50:
+  	oscil.setFrequency(/*channel*/ 4, velocity+10); 
+      break;
+    case 51:
+  	oscil.setFrequency(/*channel*/ 5, velocity+10); 
+      break;
+  }
+  	digitalWrite(led, HIGH);
 }
 
 void HandleNoteOff(byte channel, byte note, byte velocity)
 {       
-	oscil.setFrequency(/*channel*/1, /*off*/ 0); // Output D3
+  switch (note) {
+    case 48:
+  	oscil.setFrequency(/*channel*/ 2, 0); 
+      break;
+    case 49:
+  	oscil.setFrequency(/*channel*/ 3, 0); 
+      break;
+    case 50:
+  	oscil.setFrequency(/*channel*/ 4, 0); 
+      break;
+    case 51:
+  	oscil.setFrequency(/*channel*/ 5, 0); 
+      break;
+
 	digitalWrite(led, LOW);
 }
 
