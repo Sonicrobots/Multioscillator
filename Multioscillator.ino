@@ -43,7 +43,6 @@ void loop() {
        
 	MIDI.read(); // If we have received a message
 	oscil.fillBuffer();
-
 }
 
 
@@ -51,7 +50,7 @@ void loop() {
 
 void HandleNoteOn(byte channel, byte note, byte velocity)
 {          
-  int velocitymap = map(velocity, 0, 127, 1, 20)
+  int velocitymap = map(velocity, 0, 127, 1, 20);
   
   switch (note) {
     case 48:
@@ -75,19 +74,19 @@ void HandleNoteOff(byte channel, byte note, byte velocity)
   switch (note) {
     case 48:
   	oscil.setFrequency(/*channel*/ 1, 0); 
-          digitalWrite(3, LOW);
+          digitalWrite(4, LOW);
       break;
     case 49:
   	oscil.setFrequency(/*channel*/ 2, 0); 
-          digitalWrite(4, LOW);
+          digitalWrite(5, LOW);
       break;
     case 50:
   	oscil.setFrequency(/*channel*/ 3, 0); 
-          digitalWrite(5, LOW);
+          digitalWrite(6, LOW);
       break;
     case 51:
   	oscil.setFrequency(/*channel*/ 4, 0); 
-          digitalWrite(6, LOW);
+          digitalWrite(7, LOW);
       break;
 
 
