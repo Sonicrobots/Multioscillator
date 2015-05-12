@@ -136,6 +136,7 @@ void MultiChannelOscillator::calcCompareValues() {
 			setHigh(channelEnabled,index);
 		} else {
 			setLow(channelEnabled,index);
+			REGPORT(OSC_PORT) &= ~(channelMappings[index]);
 		}
 
 
