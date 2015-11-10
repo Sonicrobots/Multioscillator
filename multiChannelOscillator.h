@@ -29,7 +29,7 @@
 
 
 // which port should be used to toggle
-#define OSCIL_PORT D
+#define OSCIL_PORT B
 
 // the length of the event buffer in number of events
 #define EVENT_BUFFER_SIZE 100
