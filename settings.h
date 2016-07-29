@@ -6,7 +6,7 @@
 #define OSCIL_PORT B
 
 // the numbers of oscillator channels to handle
-#define NUMB_CHANNELS 5
+#define NUMB_CHANNELS 4
 
 // Oscillator tick size
 #define PRESCALER 256
