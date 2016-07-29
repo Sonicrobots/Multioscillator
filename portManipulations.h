@@ -43,6 +43,9 @@
 #define   bit_read_in_(x,y)  (!!(PIN ## x & (1<<y)))
 
 
+#define setLow(port, pin) ((port) &= ~(1 << (pin)))
+#define setHigh(port, pin) ((port) |= (1 << (pin)))
+
 
 
 #endif /* PORTMANIPULATIONS_H_ */
