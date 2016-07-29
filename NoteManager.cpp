@@ -61,7 +61,25 @@ void NoteManger::HandleNoteOff(uint8_t midiChannel, uint8_t note, uint8_t veloci
 	}
 }
 
+void NoteManger::HandlePitchBend(uint8_t midiChannel, int bend) {
 
+	for (uint8_t i=0; i<numbChannels; i++) {
+		if (channelNotes[i] != channelOFF) {
+
+			uint8_t note = channelNotes[i];
+			uint16_t newCompareValue;
+
+			if (bend < 0) {
+				uint16_t bendAbs = -bend;
+				newCompareValue = comparevalueTable[note] + ((uint32_t)comparevalueTable[note]*bendAbs)/8191;
+			} else {
+				uint16_t bendAbs = bend;
+				newCompareValue = comparevalueTable[note] - ((uint32_t)comparevalueTable[note]*bendAbs)/16384;
+			}
+			oscil.setComparevalue(i,newCompareValue);
+		}
+	}
+}
 
 void NoteManger::init() {
 	createTable();

@@ -56,9 +56,10 @@ void setup() {
 	MIDI.setThruFilterMode(midi::Off);
 	MIDI.setHandleNoteOn(NoteManger::HandleNoteOn);
 	MIDI.setHandleNoteOff(NoteManger::HandleNoteOff);
+	MIDI.setHandlePitchBend(NoteManger::HandlePitchBend);
 
 	// Initialize Oscillator
-	uint8_t pins[NUMB_CHANNELS] = {0,1,2,3,4};
+	uint8_t pins[NUMB_CHANNELS] = {0,1,2,3};
 	oscil.init(pins);
 
 }
