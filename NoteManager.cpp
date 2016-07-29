@@ -94,13 +94,13 @@ void NoteManger::init() {
 
 
 void NoteManger::createTable() {
-	const float noteInterval = 1.0594630944; // approximation of 12th root of 2
+	const float noteInterval = 1.0594630944f; // approximation of 12th root of 2
 	const float c_zero = 8.176;
 	const uint16_t prescaler = PRESCALER;
 
 	float freq = c_zero;
 	for (uint8_t i=0; i<128; i++) {
-		comparevalueTable[i] = (uint16_t) (F_CPU / (2 * prescaler * freq));
+		comparevalueTable[i] = (uint16_t) (float(F_CPU) / (2 * prescaler * freq) + 0.5f);
 		freq *= noteInterval;
 	}
 
