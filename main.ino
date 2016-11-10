@@ -37,6 +37,26 @@ extern MultiChannelOscillator oscil;
 MIDI_CREATE_DEFAULT_INSTANCE()
 
 
+// Readout the coded switch on PIN 2,3,4,7 on Startup. To set the MIDI Channel (1-16)
+uint8_t readMidiChannel()
+{
+	// set pins as inputs
+	pinMode(3, INPUT_PULLUP);
+	pinMode(7, INPUT_PULLUP);
+	pinMode(2, INPUT_PULLUP);	
+	pinMode(4, INPUT_PULLUP);	
+
+	uint8_t i=0;
+	bitWrite(i, 0, !digitalRead(3));
+	bitWrite(i, 1, !digitalRead(7));
+	bitWrite(i, 2, !digitalRead(2));
+	bitWrite(i, 3, !digitalRead(4));
+
+	// midi channel starts with one not zero
+	return i+1; 
+}
+
+
 
 
 void setup() {
@@ -52,7 +72,7 @@ void setup() {
 	NoteManger::init();
 
 	// Initialize MIDI
-	MIDI.begin();
+	MIDI.begin(readMidiChannel());
 	MIDI.setThruFilterMode(midi::Off);
 	MIDI.setHandleNoteOn(NoteManger::HandleNoteOn);
 	MIDI.setHandleNoteOff(NoteManger::HandleNoteOff);
@@ -69,3 +89,6 @@ void loop() {
 	oscil.fillBuffer();
 	MIDI.read();
 }
+
+
+
